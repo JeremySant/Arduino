@@ -1,0 +1,749 @@
+/*
+  This project allows you to control 30 leds with only 11 pins, without anything but wiring 
+ */
+
+int g1 = 1;
+int g2 = 2;
+int g3 = 3;
+int g4 = 4;
+int g5 = 5;
+int del = 100;
+
+int led[] = {
+  6,7,8,9,10,11};
+
+
+
+void setup() {                
+
+  pinMode(g1, OUTPUT);     
+  pinMode(g2, OUTPUT);    
+  pinMode(g3, OUTPUT);    
+  pinMode(g4, OUTPUT);    
+  pinMode(g5, OUTPUT);  
+  for(int i = 0 ; i < 7; i++)
+  {
+    pinMode(led[i], OUTPUT);
+  }
+}
+
+
+void loop() {
+ eye();
+ fillFromRight();
+ clearFromRight();
+ fillFromLeft();
+ clearFromLeft();
+
+
+
+
+
+}
+
+void eye(){
+  group1();
+  eye_r();
+  group2();
+  eye_r();
+  group3();
+  eye_r();
+  group4();
+  eye_r();
+  group5();
+  eye_r();
+  eye_l();
+  group4();
+  eye_l();
+  group3();
+  eye_l();
+  group2();
+  eye_l();
+  group1();
+  eye_l();
+
+
+}
+void eye_r(){
+  for (int i= 0; i < 6 ; i++)
+  {
+    digitalWrite(led[i], HIGH);
+    if (i > 0)
+    {
+      digitalWrite(led[i]-1, LOW);
+    }
+    delay(50);
+    if (i == 5)
+    {
+      digitalWrite(led[i], LOW);
+    }
+
+  }
+}
+void eye_l(){
+  for (int i= 5; i >= 0 ; i--)
+  {
+    digitalWrite(led[i], HIGH);
+    if (i < 5)
+    {
+      digitalWrite(led[i]+1, LOW);
+    }
+    delay(50);
+    if (i == 0)
+    {
+      digitalWrite(led[i], LOW);
+    }
+  }
+}
+
+
+
+
+void fillFromRight(){
+
+  int starttime = millis();
+  int endtime = starttime;
+  int flashDel = 1.5;
+  groupsOff();
+  for (int i= 1; i < 6 ; i++)
+  {
+
+    if(i == 1){
+    
+      group1();
+      for (int x = 0 ; x < 6; x++){
+
+        digitalWrite(led[x], HIGH);
+        delay(del);
+      }
+    }
+    if(i == 2){
+      for( int x = 0 ; x < 6 ; x++)
+      {
+        starttime = millis();
+
+        while ((endtime - starttime) <= del) 
+        {
+          endtime = millis();
+
+          ledOff();
+          group2();
+          for(int y = 0 ; y <= x ; y++)
+          {
+            digitalWrite(led[y], HIGH);
+          }
+
+
+          delay(flashDel);
+
+          group1();
+          ledOn();
+
+
+          delay(flashDel);
+
+
+
+        }
+
+
+      }
+
+    }
+    if(i == 3){
+      for( int x = 0 ; x < 6 ; x++)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) 
+        {
+          ledOff();
+          group3();
+          for(int y = 0 ; y < x ; y++)
+          {
+            digitalWrite(led[y], HIGH);
+          }
+          digitalWrite(led[x], HIGH);
+          delay(flashDel);
+          digitalWrite(g1, LOW);
+          digitalWrite(g2, LOW); 
+          digitalWrite(g3, HIGH); 
+          digitalWrite(g4, HIGH); 
+          digitalWrite(g5, HIGH);
+          ledOn();
+          delay(flashDel);
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 4){
+      for( int x = 0 ; x < 6 ; x++)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) 
+        {
+          ledOff();
+          group4();
+          for(int y = 0 ; y < x ; y++)
+          {
+            digitalWrite(led[y], HIGH);
+          }
+          digitalWrite(led[x], HIGH);
+          delay(flashDel);
+          digitalWrite(g1, LOW);
+          digitalWrite(g2, LOW); 
+          digitalWrite(g3, LOW); 
+          digitalWrite(g4, HIGH); 
+          digitalWrite(g5, HIGH);
+          ledOn();
+
+          delay(flashDel);
+
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 5){
+      for( int x = 0 ; x < 6 ; x++)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) 
+        {
+          ledOff();
+          group5();
+          for(int y = 0 ; y < x ; y++)
+          {
+            digitalWrite(led[y], HIGH);
+          }
+          digitalWrite(led[x], HIGH);
+          delay(flashDel);
+                    digitalWrite(g1, LOW);
+          digitalWrite(g2, LOW); 
+          digitalWrite(g3, LOW); 
+          digitalWrite(g4, LOW); 
+          digitalWrite(g5, HIGH);
+          ledOn();    
+      
+          delay(flashDel);
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+
+
+
+  }
+
+}
+
+void clearFromRight(){
+
+  int starttime = millis();
+  int endtime = starttime;
+  int flashDel = 1.5;
+  for (int i= 1; i < 6 ; i++)
+  {
+    groupsOff();
+    if(i == 5){
+      group5();
+      for (int x = 0 ; x < 6; x++){
+
+        digitalWrite(led[x], LOW);
+
+        delay(del);
+      }
+    }
+    if(i == 4){
+      for( int x = 0 ; x < 6 ; x++)
+      {
+        starttime = millis();
+
+        while ((endtime - starttime) <= del) 
+        {
+          ledOn();
+          group4();
+          for(int y = 0 ; y < x ; y++)
+          {
+            digitalWrite(led[y], LOW);
+          }
+          digitalWrite(led[x], LOW);
+
+          delay(flashDel);
+          group5();
+          ledOn();
+
+
+          delay(flashDel);
+
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 3){
+      for( int x = 0 ; x < 6 ; x++)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) 
+        {
+          ledOn();
+          group3();
+          for(int y = 0 ; y < x ; y++)
+          {
+            digitalWrite(led[y], LOW);
+          }
+          digitalWrite(led[x], LOW);
+          delay(flashDel);
+          group4();
+          ledOn();
+          delay(flashDel);
+          group5();
+          delay(flashDel);
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 2){
+      for( int x = 0 ; x < 6 ; x++)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del)
+        {
+          ledOn();
+          group2();
+          for(int y = 0 ; y < x ; y++)
+          {
+            digitalWrite(led[y], LOW);
+          }
+          digitalWrite(led[x], LOW);
+          delay(flashDel);
+          group5();
+          ledOn();
+
+          delay(flashDel);
+          group3();
+          delay(flashDel);
+          group4();
+          delay(flashDel);
+
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 1){
+      for( int x = 0 ; x < 6 ; x++)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) 
+        {
+          ledOn();
+          group1();
+          for(int y = 0 ; y < x ; y++)
+          {
+            digitalWrite(led[y], LOW);
+          }
+          digitalWrite(led[x], LOW);
+          delay(flashDel);
+          group4();
+          ledOn();    
+          delay(flashDel);
+          group3();
+          delay(flashDel);
+          group2();
+          delay(flashDel);
+          group5();
+          delay(flashDel);
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+
+
+
+  }
+  ledOff();
+}
+
+void fillFromLeft(){
+
+  int starttime = millis();
+  int endtime = starttime;
+  int flashDel = 1.5;
+  for (int i= 5; i > -1 ; i--)
+  {
+    groupsOff();
+    if(i == 5){
+      group5();
+      for (int x = 5 ; x > -1; x--){
+
+        digitalWrite(led[x], HIGH);
+
+        delay(del);
+      }
+    }
+    if(i == 4){
+      for(int x = 5 ; x > -1; x--)
+      {
+        starttime = millis();
+
+        while ((endtime - starttime) <= del) 
+        {
+          ledOff();
+          group4();
+          for(int y = 5 ; y > x ; y--)
+          {
+            digitalWrite(led[y], HIGH);
+          }
+          digitalWrite(led[x], HIGH);
+
+          delay(flashDel);
+          group5();
+          ledOn();
+          delay(flashDel);
+
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 3){
+      for(int x = 5 ; x > -1; x--)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del)
+        {
+          ledOff();
+          group3();
+          for(int y = 5 ; y > x ; y--)
+          {
+            digitalWrite(led[y], HIGH);
+          }
+          digitalWrite(led[x], HIGH);
+          delay(flashDel);
+          group4();
+          ledOn();
+          delay(flashDel);
+          group5();
+          delay(flashDel);
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 2){
+      for(int x = 5 ; x > -1; x--)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del)
+        {
+          ledOff();
+          group2();
+          for(int y = 5 ; y > x ; y--)
+          {
+            digitalWrite(led[y], HIGH);
+          }
+          digitalWrite(led[x], HIGH);
+          delay(flashDel);
+          group3();
+          ledOn();
+
+          delay(flashDel);
+          group4();
+          delay(flashDel);
+          group5();
+          delay(flashDel);
+
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 1){
+      for(int x = 5 ; x > -1; x--)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) // do this loop for up to 1000mS
+        {
+          ledOff();
+          group1();
+          for(int y = 5 ; y > x ; y--)
+          {
+            digitalWrite(led[y], HIGH);
+          }
+          digitalWrite(led[x], HIGH);
+          delay(flashDel);
+          group4();
+          ledOn();    
+          delay(flashDel);
+          group3();
+          delay(flashDel);
+          group2();
+          delay(flashDel);
+          group5();
+          delay(flashDel);
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+
+
+
+  }
+
+}
+void clearFromLeft(){
+
+  int starttime = millis();
+  int endtime = starttime;
+  int flashDel = 1.5;
+  for (int i= 5; i > -1 ; i--)
+  {
+    groupsOff();
+    if(i == 1){
+      group1();
+      for (int x = 5 ; x > -1; x--){
+
+        digitalWrite(led[x], LOW);
+
+        delay(del);
+      }
+    }
+    if(i == 2){
+      for(int x = 5 ; x > -1; x--)
+      {
+        starttime = millis();
+
+        while ((endtime - starttime) <= del) // do this loop for up to 1000mS
+        {
+
+          group2();
+          for(int y = 5 ; y > x ; y--)
+          {
+            digitalWrite(led[y], LOW);
+          }
+          digitalWrite(led[x], LOW);
+
+          delay(flashDel);
+          group1();
+          ledOn();
+          delay(flashDel);
+
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 3){
+      for(int x = 5 ; x > -1; x--)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) // do this loop for up to 1000mS
+        {
+
+          group3();
+          for(int y = 5 ; y > x ; y--)
+          {
+            digitalWrite(led[y], LOW);
+          }
+          digitalWrite(led[x], LOW);
+          delay(flashDel);
+          group1();
+          ledOn();
+          delay(flashDel);
+          group2();
+          delay(flashDel);
+
+          endtime = millis();
+
+        }
+
+
+      }
+
+    }
+    if(i == 4){
+      for(int x = 5 ; x > -1; x--)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) // do this loop for up to 1000mS
+        {
+
+          group4();
+          for(int y = 5 ; y > x ; y--)
+          {
+            digitalWrite(led[y], LOW);
+          }
+          digitalWrite(led[x], LOW);
+          delay(flashDel);
+          group1();
+          ledOn();
+
+          delay(flashDel);
+          group2();
+          delay(flashDel);
+          group3();
+          delay(flashDel);
+
+
+          endtime = millis();
+
+        }
+
+      }
+
+    }
+    if(i == 5){
+      for(int x = 5 ; x > -1; x--)
+      {
+        starttime = millis();
+        while ((endtime - starttime) <= del) // do this loop for up to 1000mS
+        {
+          ledOn();
+          group5();
+          for(int y = 5 ; y > x ; y--)
+          {
+            digitalWrite(led[y], LOW);
+          }
+          digitalWrite(led[x], LOW);
+          delay(flashDel);
+          group4();
+          ledOn();    
+          delay(flashDel);
+          group3();
+          delay(flashDel);
+          group2();
+          delay(flashDel);
+          group1();
+          delay(flashDel);
+
+          endtime = millis();
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+void group1(){
+
+  digitalWrite(g2, HIGH); 
+  digitalWrite(g3, HIGH); 
+  digitalWrite(g4, HIGH); 
+  digitalWrite(g5, HIGH);
+  digitalWrite(g1, LOW);
+}
+void group2(){
+  digitalWrite(g1, HIGH);
+  digitalWrite(g3, HIGH); 
+  digitalWrite(g4, HIGH); 
+  digitalWrite(g5, HIGH);
+  digitalWrite(g2, LOW);
+}
+void group3(){
+  digitalWrite(g1, HIGH);
+  digitalWrite(g2, HIGH); 
+  digitalWrite(g4, HIGH); 
+  digitalWrite(g5, HIGH);
+  digitalWrite(g3, LOW); 
+}
+void group4(){
+  digitalWrite(g1, HIGH);
+  digitalWrite(g2, HIGH); 
+  digitalWrite(g3, HIGH);
+  digitalWrite(g5, HIGH);
+  digitalWrite(g4, LOW);
+}
+void group5(){
+  digitalWrite(g1, HIGH);
+  digitalWrite(g2, HIGH); 
+  digitalWrite(g3, HIGH); 
+  digitalWrite(g4, HIGH); 
+  digitalWrite(g5, LOW);
+}
+void groupsOff(){
+  digitalWrite(g1, HIGH);
+  digitalWrite(g2, HIGH); 
+  digitalWrite(g3, HIGH); 
+  digitalWrite(g4, HIGH); 
+  digitalWrite(g5, HIGH);
+}
+void groupsOn(){
+  digitalWrite(g1, LOW);
+  digitalWrite(g2, LOW); 
+  digitalWrite(g3, LOW); 
+  digitalWrite(g4, LOW); 
+  digitalWrite(g5, LOW);
+}
+
+void ledOn(){
+  for( int h = 0 ; h < 6 ; h++)
+  {
+    digitalWrite(led[h], HIGH);
+  }
+}
+void ledOff(){
+  for(int h = 0 ; h < 6 ; h++)
+  {
+    digitalWrite(led[h], LOW);
+  }
+}
