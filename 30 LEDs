@@ -12,8 +12,6 @@ int del = 100;
 int led[] = {
   6,7,8,9,10,11};
 
-
-
 void setup() {                
 
   pinMode(g1, OUTPUT);     
@@ -27,18 +25,12 @@ void setup() {
   }
 }
 
-
 void loop() {
  eye();
  fillFromRight();
  clearFromRight();
  fillFromLeft();
  clearFromLeft();
-
-
-
-
-
 }
 
 void eye(){
@@ -62,7 +54,6 @@ void eye(){
   group1();
   eye_l();
 
-
 }
 void eye_r(){
   for (int i= 0; i < 6 ; i++)
@@ -77,7 +68,6 @@ void eye_r(){
     {
       digitalWrite(led[i], LOW);
     }
-
   }
 }
 void eye_l(){
@@ -95,9 +85,6 @@ void eye_l(){
     }
   }
 }
-
-
-
 
 void fillFromRight(){
 
@@ -132,23 +119,13 @@ void fillFromRight(){
           {
             digitalWrite(led[y], HIGH);
           }
-
-
           delay(flashDel);
-
           group1();
           ledOn();
-
-
           delay(flashDel);
 
-
-
         }
-
-
       }
-
     }
     if(i == 3){
       for( int x = 0 ; x < 6 ; x++)
@@ -171,14 +148,9 @@ void fillFromRight(){
           digitalWrite(g5, HIGH);
           ledOn();
           delay(flashDel);
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 4){
       for( int x = 0 ; x < 6 ; x++)
@@ -200,17 +172,10 @@ void fillFromRight(){
           digitalWrite(g4, HIGH); 
           digitalWrite(g5, HIGH);
           ledOn();
-
           delay(flashDel);
-
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 5){
       for( int x = 0 ; x < 6 ; x++)
@@ -232,22 +197,12 @@ void fillFromRight(){
           digitalWrite(g4, LOW); 
           digitalWrite(g5, HIGH);
           ledOn();    
-      
           delay(flashDel);
-
           endtime = millis();
-
         }
-
-
       }
-
     }
-
-
-
   }
-
 }
 
 void clearFromRight(){
@@ -285,18 +240,10 @@ void clearFromRight(){
           delay(flashDel);
           group5();
           ledOn();
-
-
           delay(flashDel);
-
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 3){
       for( int x = 0 ; x < 6 ; x++)
@@ -317,14 +264,9 @@ void clearFromRight(){
           delay(flashDel);
           group5();
           delay(flashDel);
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 2){
       for( int x = 0 ; x < 6 ; x++)
@@ -348,15 +290,9 @@ void clearFromRight(){
           delay(flashDel);
           group4();
           delay(flashDel);
-
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 1){
       for( int x = 0 ; x < 6 ; x++)
@@ -381,18 +317,10 @@ void clearFromRight(){
           delay(flashDel);
           group5();
           delay(flashDel);
-
           endtime = millis();
-
         }
-
-
       }
-
     }
-
-
-
   }
   ledOff();
 }
@@ -433,15 +361,9 @@ void fillFromLeft(){
           group5();
           ledOn();
           delay(flashDel);
-
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 3){
       for(int x = 5 ; x > -1; x--)
@@ -462,14 +384,9 @@ void fillFromLeft(){
           delay(flashDel);
           group5();
           delay(flashDel);
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 2){
       for(int x = 5 ; x > -1; x--)
@@ -493,15 +410,9 @@ void fillFromLeft(){
           delay(flashDel);
           group5();
           delay(flashDel);
-
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 1){
       for(int x = 5 ; x > -1; x--)
@@ -526,20 +437,11 @@ void fillFromLeft(){
           delay(flashDel);
           group5();
           delay(flashDel);
-
           endtime = millis();
-
         }
-
-
       }
-
     }
-
-
-
   }
-
 }
 void clearFromLeft(){
 
@@ -577,15 +479,9 @@ void clearFromLeft(){
           group1();
           ledOn();
           delay(flashDel);
-
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 3){
       for(int x = 5 ; x > -1; x--)
@@ -606,14 +502,9 @@ void clearFromLeft(){
           delay(flashDel);
           group2();
           delay(flashDel);
-
           endtime = millis();
-
         }
-
-
       }
-
     }
     if(i == 4){
       for(int x = 5 ; x > -1; x--)
@@ -631,20 +522,14 @@ void clearFromLeft(){
           delay(flashDel);
           group1();
           ledOn();
-
           delay(flashDel);
           group2();
           delay(flashDel);
           group3();
           delay(flashDel);
-
-
           endtime = millis();
-
         }
-
       }
-
     }
     if(i == 5){
       for(int x = 5 ; x > -1; x--)
@@ -669,9 +554,7 @@ void clearFromLeft(){
           delay(flashDel);
           group1();
           delay(flashDel);
-
           endtime = millis();
-
         }
 
       }
@@ -681,8 +564,6 @@ void clearFromLeft(){
   }
 
 }
-
-
 
 void group1(){
 
